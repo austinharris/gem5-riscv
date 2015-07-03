@@ -85,6 +85,11 @@ elif buildEnv['TARGET_ISA'] == 'power':
     from PowerInterrupts import PowerInterrupts
     from PowerISA import PowerISA
     isa_class = PowerISA
+elif buildEnv['TARGET_ISA'] == 'riscv':
+    from RiscvTLB import RiscvTLB
+    from RiscvInterrupts import RiscvInterrupts
+    from RiscvISA import RiscvISA
+    isa_class = RiscvISA
 
 class BaseCPU(MemObject):
     type = 'BaseCPU'
@@ -184,6 +189,12 @@ class BaseCPU(MemObject):
         interrupts = Param.PowerInterrupts(
                 NULL, "Interrupt Controller")
         isa = VectorParam.PowerISA([ isa_class() ], "ISA instance")
+    elif buildEnv['TARGET_ISA'] == 'riscv':
+        dtb = Param.RiscvTLB(RiscvTLB(), "Data TLB")
+        itb = Param.RiscvTLB(RiscvTLB(), "Instruction TLB")
+        interrupts = Param.RiscvInterrupts(
+                NULL, "Interrupt Controller")
+        isa = VectorParam.RiscvISA([ isa_class() ], "ISA instance")
     else:
         print "Don't know what TLB to use for ISA %s" % \
             buildEnv['TARGET_ISA']

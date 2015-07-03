@@ -1,0 +1,516 @@
+// -*- mode:c++ -*-
+
+// Copyright (c) 2015 Riscv Developers
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are
+// met: redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer;
+// redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer in the
+// documentation and/or other materials provided with the distribution;
+// neither the name of the copyright holders nor the names of its
+// contributors may be used to endorse or promote products derived from
+// this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+// Authors: Maxwell Walter
+
+////////////////////////////////////////////////////////////////////
+//
+// The actual Riscv ISA decoder
+// -----------------------------
+//
+
+
+decode OPCODE default Unknown::unknown() {
+0x5b: decode FUNCT3 default Unknown::unknown() {
+	0x0: BasicOp::custom2({{
+		//Implement Instruction Here
+	}});
+
+	0x2: BasicOp::custom2_rs1({{
+		//Implement Instruction Here
+	}});
+
+	0x3: BasicOp::custom2_rs1_rs2({{
+		//Implement Instruction Here
+	}});
+
+	0x4: BasicOp::custom2_rd({{
+		//Implement Instruction Here
+	}});
+
+	0x6: BasicOp::custom2_rd_rs1({{
+		//Implement Instruction Here
+	}});
+
+	0x7: BasicOp::custom2_rd_rs1_rs2({{
+		//Implement Instruction Here
+	}});
+
+}
+
+0x6f: decode FUNCT3 default Unknown::unknown() {
+	0x0: BasicOp::jal({{
+		//Implement Instruction Here
+	}});
+
+}
+
+0x23: decode FUNCT3 default Unknown::unknown() {
+	0x0: BasicOp::sb({{
+		//Implement Instruction Here
+	}});
+
+	0x1: BasicOp::sh({{
+		//Implement Instruction Here
+	}});
+
+	0x2: BasicOp::sw({{
+		//Implement Instruction Here
+	}});
+
+	0x3: BasicOp::sd({{
+		//Implement Instruction Here
+	}});
+
+}
+
+0x7b: decode FUNCT3 default Unknown::unknown() {
+	0x0: BasicOp::custom3({{
+		//Implement Instruction Here
+	}});
+
+	0x2: BasicOp::custom3_rs1({{
+		//Implement Instruction Here
+	}});
+
+	0x3: BasicOp::custom3_rs1_rs2({{
+		//Implement Instruction Here
+	}});
+
+	0x4: BasicOp::custom3_rd({{
+		//Implement Instruction Here
+	}});
+
+	0x6: BasicOp::custom3_rd_rs1({{
+		//Implement Instruction Here
+	}});
+
+	0x7: BasicOp::custom3_rd_rs1_rs2({{
+		//Implement Instruction Here
+	}});
+
+}
+
+0x13: decode FUNCT3 default Unknown::unknown() {
+	0x0: BasicOp::addi({{
+		//Implement Instruction Here
+	}});
+
+	0x1: BasicOp::slli({{
+		//Implement Instruction Here
+	}});
+
+	0x2: BasicOp::slti({{
+		//Implement Instruction Here
+	}});
+
+	0x3: BasicOp::sltiu({{
+		//Implement Instruction Here
+	}});
+
+	0x4: BasicOp::xori({{
+		//Implement Instruction Here
+	}});
+
+	0x5: decode FUNCT7 default Unknown::unknown() {
+    0x0: BasicOp::srli({{
+          //Implement Instruction Here
+    }});
+    0x20: BasicOp::srai({{
+          //Implement Instruction Here
+    }});
+  }
+
+	0x6: BasicOp::ori({{
+		//Implement Instruction Here
+	}});
+
+	0x7: BasicOp::andi({{
+		//Implement Instruction Here
+	}});
+
+}
+
+0xf: decode FUNCT3 default Unknown::unknown() {
+	0x0: BasicOp::fence({{
+		//Implement Instruction Here
+	}});
+
+	0x1: BasicOp::fence_i({{
+		//Implement Instruction Here
+	}});
+
+}
+
+0x17: decode FUNCT3 default Unknown::unknown() {
+	0x0: BasicOp::auipc({{
+		//Implement Instruction Here
+	}});
+
+}
+
+0x37: decode FUNCT3 default Unknown::unknown() {
+	0x0: BasicOp::lui({{
+		//Implement Instruction Here
+	}});
+
+}
+
+0x33: decode FUNCT3 default Unknown::unknown() {
+	0x0: decode FUNCT7 default Unknown::unknown() {
+    0x0: BasicOp::add({{
+          Rd = Rs1 + Rs2;
+    }});
+
+    0x20: BasicOp::sub({{
+          Rd = Rs1 - Rs2;
+    }});
+  }
+
+	0x5: decode FUNCT7 default Unknown::unknown() {
+    0x0: BasicOp::srl({{
+          //Implement Instruction Here
+   }});
+
+    0x20: BasicOp::sra({{
+          //Implement Instruction Here
+   }});
+  }
+
+	0x1: BasicOp::sll({{
+		//Implement Instruction Here
+	}});
+
+	0x2: BasicOp::slt({{
+		//Implement Instruction Here
+	}});
+
+	0x3: BasicOp::sltu({{
+		//Implement Instruction Here
+	}});
+
+	0x4: BasicOp::xor({{
+		//Implement Instruction Here
+	}});
+
+	0x6: BasicOp::or({{
+		//Implement Instruction Here
+	}});
+
+	0x7: BasicOp::and({{
+		//Implement Instruction Here
+	}});
+
+}
+
+0xb: decode FUNCT3 default Unknown::unknown() {
+	0x0: BasicOp::custom0({{
+		//Implement Instruction Here
+	}});
+
+	0x2: BasicOp::custom0_rs1({{
+		//Implement Instruction Here
+	}});
+
+	0x3: BasicOp::custom0_rs1_rs2({{
+		//Implement Instruction Here
+	}});
+
+	0x4: BasicOp::custom0_rd({{
+		//Implement Instruction Here
+	}});
+
+	0x6: BasicOp::custom0_rd_rs1({{
+		//Implement Instruction Here
+	}});
+
+	0x7: BasicOp::custom0_rd_rs1_rs2({{
+		//Implement Instruction Here
+	}});
+
+}
+
+0x2b: decode FUNCT3 default Unknown::unknown() {
+	0x0: BasicOp::custom1({{
+		//Implement Instruction Here
+	}});
+
+	0x2: BasicOp::custom1_rs1({{
+		//Implement Instruction Here
+	}});
+
+	0x3: BasicOp::custom1_rs1_rs2({{
+		//Implement Instruction Here
+	}});
+
+	0x4: BasicOp::custom1_rd({{
+		//Implement Instruction Here
+	}});
+
+	0x6: BasicOp::custom1_rd_rs1({{
+		//Implement Instruction Here
+	}});
+
+	0x7: BasicOp::custom1_rd_rs1_rs2({{
+		//Implement Instruction Here
+	}});
+
+}
+
+0x67: decode FUNCT3 default Unknown::unknown() {
+	0x0: BasicOp::jalr({{
+		//Implement Instruction Here
+	}});
+
+}
+
+0x3: decode FUNCT3 default Unknown::unknown() {
+	0x0: BasicOp::lb({{
+		//Implement Instruction Here
+	}});
+
+	0x1: BasicOp::lh({{
+		//Implement Instruction Here
+	}});
+
+	0x2: BasicOp::lw({{
+		//Implement Instruction Here
+	}});
+
+	0x3: BasicOp::ld({{
+		//Implement Instruction Here
+	}});
+
+	0x4: BasicOp::lbu({{
+		//Implement Instruction Here
+	}});
+
+	0x5: BasicOp::lhu({{
+		//Implement Instruction Here
+	}});
+
+	0x6: BasicOp::lwu({{
+		//Implement Instruction Here
+	}});
+
+}
+
+0x63: decode FUNCT3 default Unknown::unknown() {
+	0x0: BasicOp::beq({{
+		//Implement Instruction Here
+	}});
+
+	0x1: BasicOp::bne({{
+		//Implement Instruction Here
+	}});
+
+	0x4: BasicOp::blt({{
+		//Implement Instruction Here
+	}});
+
+	0x5: BasicOp::bge({{
+		//Implement Instruction Here
+	}});
+
+	0x6: BasicOp::bltu({{
+		//Implement Instruction Here
+	}});
+
+	0x7: BasicOp::bgeu({{
+		//Implement Instruction Here
+	}});
+
+}
+
+}
+
+// decode OPCODE default Unknown::unknown() {
+//   // Format A - move immediate
+
+// 0x0: decode D_FUNC default Unknown::unknown() {
+// 	0x0: PredicateOp::addition({{
+// 		Rc = Ra + Rb;
+// 	 }});
+
+// 	0x1: PredicateOp::subtraction({{
+// 		Rc = Ra - Rb;
+// 	}});
+
+// 	0x2: PredicateOp::cmpseq({{
+// 		Rc = 0;
+// 		if(Ra == Rb) Rc = 1;
+// 	}});
+
+// 	0x3: PredicateOp::cmpslt({{
+// 		Rc = 0;
+// 		if(Ra < Rb) Rc = 1;
+// 	}});
+
+// 	0x4: CopOp::mtcp({{
+// 		Ra = Ra;
+// 	}});
+
+// 	0x5: PredicateOp::cmpsne({{
+// 		Rc = 0;
+// 		if(Ra != Rb) Rc = 1;
+// 	}});
+
+// 	0x8: PredicateOp::logicAnd({{
+// 		Rc = Ra & Rb;
+// 	}});
+
+// 	0x9: PredicateOp::logicOr({{
+// 		Rc = Ra | Rb;
+// 	}});
+
+// 	0xA: PredicateOp::logicXOr({{
+// 		Rc = Ra ^ Rb;
+// 	}});
+
+// 	0xF: decode E_FUNC default Unknown::unknown() {
+// 		0x1: BasicOp::jalr({{
+// 			  CNPC=CNPC;
+// 			  PC=PC;
+
+// 			  CNPC = Ra;
+// 			  Rc = PC + 20;
+// 		}});
+
+// 		0x2: SpecialLoad::mfms({{
+// 			  Rc = Mem_uw;
+// 				if(Rc == 0) Rc = 0x22;
+// 		}});
+
+// 		0x7: Linked::ll({{ /*Find out how to fit in SC instruction here*/
+// 			  Rc = Mem_uw;
+// 		}});
+		
+// 		0x8: PredicateOp::sra({{
+// 			  Rc = Ra >> 1;
+// 			  Rc = (Rc & 0x7FFFFFFF) | (Ra & 0x80000000);
+// 		}});
+
+// 		0x9: PredicateOp::srl({{
+// 			  Rc = Ra >> 1;
+// 			  Rc = (Rc & 0x7FFFFFFF);
+// 		}});
+// 	}
+
+// }
+
+// 0x1: PredicateOp::addImm({{
+// 	int32_t val = (A_IMM_LO & 0x400 ? A_IMM_LO | 0xfffff800 : A_IMM_LO); 
+// 	Rc = Ra + val;
+// }});
+
+// 0x2: decode _N default Unknown::unknown() {
+
+// 	format Jump {
+// 		0x0: BasicOp::bnz({{
+// 			if(Ra != 0) {
+// 				CNPC = CNPC;
+// 				CNPC = PC + (((C_OFF << 2) & 0x4000) ? (((C_OFF<<2) | 0xffff8000)) /*If value was negative*/ : C_OFF << 2 /*If value was positive*/);
+// 				//inform("CNPC=%#x",CNPC);
+// 			}
+// 		}});
+	
+// 		0x1: BasicOp::bz({{
+// 			ANPC=ANPC;
+// 			BNPC=BNPC;
+// 			CNPC=CNPC;
+// 			if(Ra == 0) {
+// 				CNPC = PC + (((C_OFF << 2) & 0x4000) ? ((int32_t)((C_OFF<<2) | 0xffff8000)) /*If value was negative*/ : C_OFF << 2 /*If value was positive*/);
+// 			}
+// 			//inform("bz, npc=%#x,anpc=%#x,bnpc=%#x,cnpc=%#x",NPC,ANPC,BNPC,CNPC);
+// 		}});
+// 	}
+// }
+
+// 0x3: BasicOp::movHiImm({{
+//       uint32_t imm = (A_IMM_HI_ACTUAL << 10);
+//         Ra = (imm);
+//       }});
+
+// 0x4: Load::lw({{
+// 	/*uintptr_t val1 = Ra;
+// 	uintptr_t val2 = A_IMM_LO << 2;
+// 	uint32_t *addr = (uint32_t*) (val1 + val2);
+// 	Rc = *addr;*/
+// 	Rc = Mem_uw;
+// 	}});
+
+// 0x5: decode A_IMM_LO {
+
+// 	0x600: SpecialStore::mtms({{
+// 		//inform("Ra=%d,Rb=%d,Rc=%d",Ra,Rb,Rc);
+// 		Mem_uw = Rc;
+// 	}});
+
+
+// 	default: Store::sw({{
+// 		Mem_uw = Rc;
+// 	}});
+// }
+
+// 0x7: decode D_FUNC default Unknown::unknown() {
+// 	0x0: PredicateOp::bsll({{
+// 		Rc = Ra << (Rb & 0x3F);	
+// 	}});
+
+// 	0x1: PredicateOp::bsra({{
+// 		if(Rb & 0x3F)
+// 		{
+// 			uint8_t shift_amount = (Rb & 0x3F);
+// 			Rc = Ra >> shift_amount;
+			
+// 			if(Ra & 0x80000000)
+// 			{
+// 				uint32_t bit_to_set = 0x80000000;
+// 				while(shift_amount > 0)
+// 				{
+// 					Rc = (Rc | bit_to_set);
+	
+// 					shift_amount--;
+// 					bit_to_set /= 2;
+// 				}
+// 			}
+// 		}
+// 	}});
+
+// 	0x2: PredicateOp::bsrl({{
+// 		Rc = Ra >> (Rb & 0x3F);
+// 	}});
+
+// 	0x3: PredicateOp::multiply({{
+//     		Rc = Ra * Rb;
+//     }});
+// }
+
+// default: Unknown::unknown();
+// }
+

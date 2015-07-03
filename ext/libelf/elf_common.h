@@ -179,6 +179,7 @@ typedef struct {
 #define EM_MIPS_RS4_BE	10	/* MIPS R4000 Big-Endian */
 #define EM_ALPHA_STD	41	/* Digital Alpha (standard value). */
 #define EM_ALPHA	0x9026	/* Alpha (written in the absence of an ABI) */
+#define EM_RISCV        243     /* Berkeley RISC-V */
 
 /* Special section indexes. */
 #define SHN_UNDEF	     0		/* Undefined, missing, irrelevant. */
