@@ -52,40 +52,27 @@ class ISA : public SimObject
 {
   protected:
 
+  std::vector<std::vector<MiscReg> > miscRegFile;
+
   public:
     typedef RiscvISAParams Params;
+    static std::string miscRegNames[NumMiscRegs];
 
 
     void
-    clear()
-    {
-    }
+    clear();
 
     MiscReg
-    readMiscRegNoEffect(int misc_reg) const
-    {
-        fatal("Riscv does not currently have any misc regs defined\n");
-        return 0;
-    }
+    readMiscRegNoEffect(int misc_reg) const;
 
     MiscReg
-    readMiscReg(int misc_reg, ThreadContext *tc)
-    {
-        fatal("Riscv does not currently have any misc regs defined\n");
-        return 0;
-    }
+    readMiscReg(int misc_reg, ThreadContext *tc);
 
     void
-    setMiscRegNoEffect(int misc_reg, const MiscReg &val)
-    {
-        fatal("Riscv does not currently have any misc regs defined\n");
-    }
+    setMiscRegNoEffect(int misc_reg, const MiscReg &val);
 
     void
-    setMiscReg(int misc_reg, const MiscReg &val, ThreadContext *tc)
-    {
-        fatal("Riscv does not currently have any misc regs defined\n");
-    }
+    setMiscReg(int misc_reg, const MiscReg &val, ThreadContext *tc);
 
     int
     flattenIntIndex(int reg) const

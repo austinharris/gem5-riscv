@@ -57,7 +57,7 @@ typedef float FloatReg;        //! \todo needs to be updated to reflect FPU
 typedef uint8_t CCReg;         // Not applicable to Riscv
 typedef uint32_t MiscReg;
 
-const int NumIntRegs = 128;
+const int NumIntRegs = 32;
 const int NumFloatRegs = 0;
 const int NumCCRegs = 0;
 const int NumMiscRegs = 1;
@@ -70,6 +70,7 @@ const int Max_Reg_Index = Misc_Reg_Base + NumMiscRegs;
 
 
 // Semantically meaningful register indices
+const int ZeroReg = 0;
 const int ReturnValueReg = 8;
 const int ArgumentReg0 = 8;
 const int ArgumentReg1 = 9;
@@ -83,9 +84,9 @@ const int SyscallNumReg = 8;
 const int SyscallPseudoReturnReg = 8;
 const int SyscallSuccessReg = 8;
 
-//! \todo ZeroReg is not set correctly and this should be fixed at
-//         some point. There isn't any zero reg in Riscv
-const int ZeroReg = 70;
+enum MiscRegIndex{
+  MISCREG_HARTID = 0
+};
 
 }
 

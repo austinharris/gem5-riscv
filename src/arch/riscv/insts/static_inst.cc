@@ -43,7 +43,7 @@ RiscvStaticInst::printReg(std::ostream &os, int reg) const
 
     switch (regIdxToClass(reg, &rel_reg)) {
       case IntRegClass:
-        ccprintf(os, "r%d", rel_reg);
+        ccprintf(os, "x%d", rel_reg);
         break;
       case FloatRegClass:
         panic("printReg: Riscv does not implement FloatRegClass\n");

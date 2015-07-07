@@ -250,6 +250,8 @@ class BaseCPU(MemObject):
             self.interrupts = ArmInterrupts()
         elif buildEnv['TARGET_ISA'] == 'power':
             self.interrupts = PowerInterrupts()
+        elif buildEnv['TARGET_ISA'] == 'riscv':
+            self.interrupts = RiscvInterrupts()
         else:
             print "Don't know what Interrupt Controller to use for ISA %s" % \
                 buildEnv['TARGET_ISA']

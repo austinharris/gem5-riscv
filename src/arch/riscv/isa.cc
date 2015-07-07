@@ -41,20 +41,93 @@
 
 #include "arch/riscv/isa.hh"
 #include "params/RiscvISA.hh"
+#include "debug/RiscvPRA.hh"
 
 namespace RiscvISA
 {
 
+std::string
+ISA::miscRegNames[NumMiscRegs] =
+{
+    "Hartid"
+};
+
 ISA::ISA(Params *p)
     : SimObject(p)
 {
+  miscRegFile.resize(NumMiscRegs);
+  for (int i =0; i < NumMiscRegs; i++) {
+    miscRegFile[i].resize(1);
+  }
     clear();
+}
+
+void
+ISA::clear()
+{
+    for(int i = 0; i < NumMiscRegs; i++)
+        for (int j = 0; j < miscRegFile[i].size(); j++)
+            miscRegFile[i][j] = 0;
 }
 
 const RiscvISAParams *
 ISA::params() const
 {
     return dynamic_cast<const Params *>(_params);
+}
+
+MiscReg
+ISA::readMiscRegNoEffect(int misc_reg) const
+{
+    unsigned reg_sel = 0;
+    DPRINTF(RiscvPRA, "Reading CSR:%u Select:%u (%s) (%lx).\n",
+            misc_reg / 8, misc_reg % 8, miscRegNames[misc_reg],
+            miscRegFile[misc_reg][reg_sel]);
+    return miscRegFile[misc_reg][reg_sel];
+}
+
+//@TODO: MIPS MT's register view automatically connects
+//       Status to TCStatus depending on current thread
+//template <class TC>
+MiscReg
+ISA::readMiscReg(int misc_reg, ThreadContext *tc)
+{
+    unsigned reg_sel = 0;
+    DPRINTF(RiscvPRA,
+            "Reading CP0 Register:%u Select:%u (%s) with effect (%lx).\n",
+            misc_reg / 8, misc_reg % 8, miscRegNames[misc_reg],
+            miscRegFile[misc_reg][reg_sel]);
+
+    return miscRegFile[misc_reg][reg_sel];
+}
+
+void
+ISA::setMiscRegNoEffect(int misc_reg, const MiscReg &val)
+{
+  unsigned reg_sel = 0;
+    DPRINTF(RiscvPRA,
+            "Setting (direct set) CP0 Register:%u "
+            "Select:%u (%s) to %#x.\n",
+             misc_reg / 8, misc_reg % 8, miscRegNames[misc_reg], val);
+
+    miscRegFile[misc_reg][reg_sel] = val;
+}
+
+void
+ISA::setMiscReg(int misc_reg, const MiscReg &val,
+                ThreadContext *tc)
+{
+    int reg_sel = 0;
+
+    DPRINTF(RiscvPRA,
+            "Setting CP0 Register:%u "
+            "Select:%u (%s) to %#x, with effect.\n",
+             misc_reg / 8, misc_reg % 8, miscRegNames[misc_reg], val);
+
+
+    miscRegFile[misc_reg][reg_sel] = val;
+
+    //    scheduleCP0Update(tc->getCpuPtr(), Cycles(1));
 }
 
 }
@@ -64,4 +137,3 @@ RiscvISAParams::create()
 {
     return new RiscvISA::ISA(this);
 }
-

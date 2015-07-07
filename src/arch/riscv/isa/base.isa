@@ -71,10 +71,13 @@ output decoder {{
     void RiscvStaticInst::printReg(std::ostream &os, int reg) const
     {
         if (reg < FP_Reg_Base) {
-            ccprintf(os, "r%d", reg);
+            ccprintf(os, "x%d", reg);
+        }
+        else if (reg < Misc_Reg_Base) {
+            ccprintf(os, "f%d", reg - FP_Reg_Base);
         }
         else {
-            ccprintf(os, "f%d", reg - FP_Reg_Base);
+            ccprintf(os, "reading CSR %d", reg);
         }
     }
 

@@ -44,12 +44,23 @@ def bitfield RS2    <24:20>;
 def bitfield FUNCT7 <31:25>;
 
 //I-TYPE
-def bitfield IMM12  <31:20>;
+def signed bitfield IMM12  <31:20>;
 
 //S-TYPE
-def bitfield IMM5   <11:7>;
-def bitfield IMM7   <31:25>;
+def signed bitfield IMM5   <11:7>;
+def signed bitfield IMM7   <31:25>;
 
 //U-TYPE
-def bitfield IMM20  <31:12>;
+def signed bitfield IMM20  <31:12>;
 
+def signed bitfield BIMM12BIT11 <7>;
+def signed bitfield BIMM12BITS4TO1<11:8>;
+def signed bitfield IMMSIGN <31>;
+def signed bitfield BIMM12BITS10TO5 <30:25>;
+
+def bitfield SYSTEMFUNC <31:12>;
+
+//UJ-TYPE
+def signed bitfield UJIMMBITS10TO1 <30:21>;
+def signed bitfield  UJIMMBIT11 <20>;
+def signed bitfield UJIMMBITS19TO12 <19:12>;

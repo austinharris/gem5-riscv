@@ -56,4 +56,7 @@ def operands {{
     'PC': ('PCState', 'uw', 'pc', (None, None, 'IsControl'), 4),
     'NPC': ('PCState', 'uw', 'npc', (None, None, 'IsControl'), 4),
 
+#Control Status Registers
+      'Hartid' : ('ControlReg', 'ud', 'MISCREG_HARTID', None, 1)
+
 }};

@@ -45,7 +45,7 @@
 #include "base/types.hh"
 #include "cpu/static_inst_fwd.hh"
 
-namespace BigEndianGuest {}
+namespace LittleEndianGuest {}
 
 
 namespace RiscvISA
@@ -53,10 +53,10 @@ namespace RiscvISA
 
 
 	//#include "sim/byteswap.hh"
-    using namespace BigEndianGuest;
+    using namespace LittleEndianGuest;
 
-// Riscv does have a delay slot
-#define ISA_HAS_DELAY_SLOT 1
+// Riscv does NOT have a delay slot
+#define ISA_HAS_DELAY_SLOT 0
 
     const Addr PageShift = 21;
     const Addr PageBytes = ULL(1) << PageShift;

@@ -66,6 +66,10 @@ decode OPCODE default Unknown::unknown() {
 0x6f: decode FUNCT3 default Unknown::unknown() {
 	0x0: BasicOp::jal({{
 		//Implement Instruction Here
+          DPRINTF(RiscvPRA, "jal, PC=%x, NPC=%x", PC, NPC);
+          Rd = NPC;
+          NPC = PC + ((UJIMMBITS10TO1 << 1) + (UJIMMBIT11 << 11) + (UJIMMBITS19TO12 << 12) + (IMMSIGN << 20));
+          DPRINTF(RiscvPRA, "jal, PC=%x, NPC=%x", PC, NPC);
 	}});
 
 }
@@ -119,6 +123,7 @@ decode OPCODE default Unknown::unknown() {
 0x13: decode FUNCT3 default Unknown::unknown() {
 	0x0: BasicOp::addi({{
 		//Implement Instruction Here
+          Rd = Rs1 + IMM12;
 	}});
 
 	0x1: BasicOp::slli({{
@@ -323,10 +328,22 @@ decode OPCODE default Unknown::unknown() {
 0x63: decode FUNCT3 default Unknown::unknown() {
 	0x0: BasicOp::beq({{
 		//Implement Instruction Here
+        if (Rs1 == Rs2) {
+          NPC=NPC;
+
+          NPC = PC + ((BIMM12BITS4TO1 << 1) + (BIMM12BITS10TO5 << 5) + (BIMM12BIT11 << 11) + (IMMSIGN << 12));
+        }
 	}});
 
 	0x1: BasicOp::bne({{
 		//Implement Instruction Here
+        DPRINTF(RiscvPRA, "bne, PC=%x, NPC=%x, Rs1=%d, Rs2=%d", PC, NPC, Rs1, Rs2);
+        if (Rs1 != Rs2) {
+          NPC=NPC;
+
+          NPC = PC + ((BIMM12BITS4TO1 << 1) + (BIMM12BITS10TO5 << 5) + (BIMM12BIT11 << 11) + (IMMSIGN << 12));
+          DPRINTF(RiscvPRA, "bne, PC=%x, NPC=%x", PC, NPC);
+        }
 	}});
 
 	0x4: BasicOp::blt({{
@@ -347,170 +364,48 @@ decode OPCODE default Unknown::unknown() {
 
 }
 
+0x73: decode FUNCT3 default Unknown::unknown() {
+  0x0: decode SYSTEMFUNC default Unknown::unknown() {
+    0x0: BasicOp::scall({{
+          //Implement Instruction Here
+    }});
+
+    0x1: BasicOp::sbreak({{
+          //Implement Instruction Here
+    }});
+
+    0x800: BasicOp::sret({{
+          //Implement Instruction Here
+    }});
+  }
+
+	0x1: BasicOp::csrrw({{
+		//Implement Instruction Here
+	}});
+
+	0x2: BasicOp::csrrs({{
+		//Implement Instruction Here
+          //MiscReg hartid = Hartid;
+          DPRINTF(RiscvPRA, "csrrrs hartid");
+          Rd = Hartid;
+	}});
+
+	0x3: BasicOp::csrrc({{
+		//Implement Instruction Here
+	}});
+
+	0x5: BasicOp::csrrwi({{
+		//Implement Instruction Here
+	}});
+
+	0x6: BasicOp::csrrsi({{
+		//Implement Instruction Here
+	}});
+
+	0x7: BasicOp::csrrci({{
+		//Implement Instruction Here
+	}});
+
 }
 
-// decode OPCODE default Unknown::unknown() {
-//   // Format A - move immediate
-
-// 0x0: decode D_FUNC default Unknown::unknown() {
-// 	0x0: PredicateOp::addition({{
-// 		Rc = Ra + Rb;
-// 	 }});
-
-// 	0x1: PredicateOp::subtraction({{
-// 		Rc = Ra - Rb;
-// 	}});
-
-// 	0x2: PredicateOp::cmpseq({{
-// 		Rc = 0;
-// 		if(Ra == Rb) Rc = 1;
-// 	}});
-
-// 	0x3: PredicateOp::cmpslt({{
-// 		Rc = 0;
-// 		if(Ra < Rb) Rc = 1;
-// 	}});
-
-// 	0x4: CopOp::mtcp({{
-// 		Ra = Ra;
-// 	}});
-
-// 	0x5: PredicateOp::cmpsne({{
-// 		Rc = 0;
-// 		if(Ra != Rb) Rc = 1;
-// 	}});
-
-// 	0x8: PredicateOp::logicAnd({{
-// 		Rc = Ra & Rb;
-// 	}});
-
-// 	0x9: PredicateOp::logicOr({{
-// 		Rc = Ra | Rb;
-// 	}});
-
-// 	0xA: PredicateOp::logicXOr({{
-// 		Rc = Ra ^ Rb;
-// 	}});
-
-// 	0xF: decode E_FUNC default Unknown::unknown() {
-// 		0x1: BasicOp::jalr({{
-// 			  CNPC=CNPC;
-// 			  PC=PC;
-
-// 			  CNPC = Ra;
-// 			  Rc = PC + 20;
-// 		}});
-
-// 		0x2: SpecialLoad::mfms({{
-// 			  Rc = Mem_uw;
-// 				if(Rc == 0) Rc = 0x22;
-// 		}});
-
-// 		0x7: Linked::ll({{ /*Find out how to fit in SC instruction here*/
-// 			  Rc = Mem_uw;
-// 		}});
-		
-// 		0x8: PredicateOp::sra({{
-// 			  Rc = Ra >> 1;
-// 			  Rc = (Rc & 0x7FFFFFFF) | (Ra & 0x80000000);
-// 		}});
-
-// 		0x9: PredicateOp::srl({{
-// 			  Rc = Ra >> 1;
-// 			  Rc = (Rc & 0x7FFFFFFF);
-// 		}});
-// 	}
-
-// }
-
-// 0x1: PredicateOp::addImm({{
-// 	int32_t val = (A_IMM_LO & 0x400 ? A_IMM_LO | 0xfffff800 : A_IMM_LO); 
-// 	Rc = Ra + val;
-// }});
-
-// 0x2: decode _N default Unknown::unknown() {
-
-// 	format Jump {
-// 		0x0: BasicOp::bnz({{
-// 			if(Ra != 0) {
-// 				CNPC = CNPC;
-// 				CNPC = PC + (((C_OFF << 2) & 0x4000) ? (((C_OFF<<2) | 0xffff8000)) /*If value was negative*/ : C_OFF << 2 /*If value was positive*/);
-// 				//inform("CNPC=%#x",CNPC);
-// 			}
-// 		}});
-	
-// 		0x1: BasicOp::bz({{
-// 			ANPC=ANPC;
-// 			BNPC=BNPC;
-// 			CNPC=CNPC;
-// 			if(Ra == 0) {
-// 				CNPC = PC + (((C_OFF << 2) & 0x4000) ? ((int32_t)((C_OFF<<2) | 0xffff8000)) /*If value was negative*/ : C_OFF << 2 /*If value was positive*/);
-// 			}
-// 			//inform("bz, npc=%#x,anpc=%#x,bnpc=%#x,cnpc=%#x",NPC,ANPC,BNPC,CNPC);
-// 		}});
-// 	}
-// }
-
-// 0x3: BasicOp::movHiImm({{
-//       uint32_t imm = (A_IMM_HI_ACTUAL << 10);
-//         Ra = (imm);
-//       }});
-
-// 0x4: Load::lw({{
-// 	/*uintptr_t val1 = Ra;
-// 	uintptr_t val2 = A_IMM_LO << 2;
-// 	uint32_t *addr = (uint32_t*) (val1 + val2);
-// 	Rc = *addr;*/
-// 	Rc = Mem_uw;
-// 	}});
-
-// 0x5: decode A_IMM_LO {
-
-// 	0x600: SpecialStore::mtms({{
-// 		//inform("Ra=%d,Rb=%d,Rc=%d",Ra,Rb,Rc);
-// 		Mem_uw = Rc;
-// 	}});
-
-
-// 	default: Store::sw({{
-// 		Mem_uw = Rc;
-// 	}});
-// }
-
-// 0x7: decode D_FUNC default Unknown::unknown() {
-// 	0x0: PredicateOp::bsll({{
-// 		Rc = Ra << (Rb & 0x3F);	
-// 	}});
-
-// 	0x1: PredicateOp::bsra({{
-// 		if(Rb & 0x3F)
-// 		{
-// 			uint8_t shift_amount = (Rb & 0x3F);
-// 			Rc = Ra >> shift_amount;
-			
-// 			if(Ra & 0x80000000)
-// 			{
-// 				uint32_t bit_to_set = 0x80000000;
-// 				while(shift_amount > 0)
-// 				{
-// 					Rc = (Rc | bit_to_set);
-	
-// 					shift_amount--;
-// 					bit_to_set /= 2;
-// 				}
-// 			}
-// 		}
-// 	}});
-
-// 	0x2: PredicateOp::bsrl({{
-// 		Rc = Ra >> (Rb & 0x3F);
-// 	}});
-
-// 	0x3: PredicateOp::multiply({{
-//     		Rc = Ra * Rb;
-//     }});
-// }
-
-// default: Unknown::unknown();
-// }
-
+}
