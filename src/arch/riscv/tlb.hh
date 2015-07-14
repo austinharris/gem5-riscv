@@ -56,47 +56,47 @@ namespace RiscvISA {
 /* Dummy implementation. Riscv does not (yet) support a TLB. */
 struct TlbEntry
 {
- Addr _pageStart;
+    Addr _pageStart;
 
- inline
- TlbEntry()
- {
- }
+    inline
+    TlbEntry()
+    {
+    }
 
- inline
- TlbEntry(Addr asn, Addr vaddr, Addr paddr,
-           bool uncacheable, bool read_only)
+    inline
+    TlbEntry(Addr asn, Addr vaddr, Addr paddr,
+             bool uncacheable, bool read_only)
         : _pageStart(paddr)
- {
-  if (uncacheable || read_only)
-   warn("Riscv TlbEntry does not support uncacheable"
-        " or read-only mappings\n");
+    {
+        if (uncacheable || read_only)
+            warn("Riscv TlbEntry does not support uncacheable"
+                 " or read-only mappings\n");
 
- }
+    }
 
- inline void
- updateVaddr(Addr new_vaddr)
- {
-  panic("unimplemented");
- }
+    inline void
+    updateVaddr(Addr new_vaddr)
+    {
+        panic("unimplemented");
+    }
 
- inline Addr
- pageStart()
- {
-  return _pageStart;
- }
+    inline Addr
+    pageStart()
+    {
+        return _pageStart;
+    }
 
- inline void
- serialize(std::ostream &os)
- {
-  SERIALIZE_SCALAR(_pageStart);
- }
+    inline void
+    serialize(std::ostream &os)
+    {
+        SERIALIZE_SCALAR(_pageStart);
+    }
 
- inline void
- unserialize(Checkpoint *cp, const std::string &section)
- {
-  UNSERIALIZE_SCALAR(_pageStart);
- }
+    inline void
+    unserialize(Checkpoint *cp, const std::string &section)
+    {
+        UNSERIALIZE_SCALAR(_pageStart);
+    }
 };
 
 class TLB : public BaseTLB

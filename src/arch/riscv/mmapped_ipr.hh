@@ -49,8 +49,8 @@ class ThreadContext;
 
 namespace RiscvISA
 {
-    using GenericISA::handleIprRead;
-    using GenericISA::handleIprWrite;
+using GenericISA::handleIprRead;
+using GenericISA::handleIprWrite;
 } // namespace RiscvISA
 
 #endif // __ARCH_RISCV_MMAPPED_IPR_HH__

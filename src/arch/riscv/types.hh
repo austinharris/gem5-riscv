@@ -46,10 +46,10 @@
 
 namespace RiscvISA
 {
-    typedef uint32_t MachInst;
-    typedef uint64_t ExtMachInst;
+typedef uint32_t MachInst;
+typedef uint64_t ExtMachInst;
 
-    typedef GenericISA::SimplePCState<MachInst> PCState;
+typedef GenericISA::SimplePCState<MachInst> PCState;
 }
 
 

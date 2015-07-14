@@ -51,15 +51,15 @@ namespace RiscvISA {
 inline PCState
 buildRetPC(const PCState &curPC, const PCState &callPC)
 {
- PCState retPC = callPC;
- retPC.advance();
- return retPC;
+    PCState retPC = callPC;
+    retPC.advance();
+    return retPC;
 }
 
 inline uint64_t
 getArgument(ThreadContext *tc, int &number, uint16_t size, bool fp)
 {
- return 0;
+    return 0;
 }
 
 inline void startupCPU(ThreadContext *tc, int cpuId)
@@ -69,42 +69,42 @@ inline void startupCPU(ThreadContext *tc, int cpuId)
 inline void
 copyRegs(ThreadContext *src, ThreadContext *dest)
 {
- // First loop through the integer registers.
- for (int i = 0; i < NumIntRegs; ++i)
-  dest->setIntReg(i, src->readIntReg(i));
+    // First loop through the integer registers.
+    for (int i = 0; i < NumIntRegs; ++i)
+        dest->setIntReg(i, src->readIntReg(i));
 
- // Lastly copy PC/NPC
- dest->pcState(src->pcState());
+    // Lastly copy PC/NPC
+    dest->pcState(src->pcState());
 }
 
 inline void
 skipFunction(ThreadContext *tc)
 {
- panic("Not Implemented for Riscv");
+    panic("Not Implemented for Riscv");
 }
 
 inline void
 advancePC(PCState &pc, const StaticInstPtr &inst)
 {
- pc.advance();
+    pc.advance();
 }
 
 static inline bool
 inUserMode(ThreadContext *tc)
 {
- return true;
+    return true;
 }
 
 inline uint64_t
 getExecutingAsid(ThreadContext *tc)
 {
- return 0;
+    return 0;
 }
 
 inline void
 initCPU(ThreadContext *, int cpuId)
 {
- panic("initCPU not implemented for Riscv.\n");
+    panic("initCPU not implemented for Riscv.\n");
 }
 
 } // namespace RiscvISA

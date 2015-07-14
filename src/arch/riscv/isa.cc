@@ -55,10 +55,10 @@ ISA::miscRegNames[NumMiscRegs] =
 ISA::ISA(Params *p)
     : SimObject(p)
 {
-  miscRegFile.resize(NumMiscRegs);
-  for (int i =0; i < NumMiscRegs; i++) {
-    miscRegFile[i].resize(1);
-  }
+    miscRegFile.resize(NumMiscRegs);
+    for (int i =0; i < NumMiscRegs; i++) {
+        miscRegFile[i].resize(1);
+    }
     clear();
 }
 
@@ -104,11 +104,11 @@ ISA::readMiscReg(int misc_reg, ThreadContext *tc)
 void
 ISA::setMiscRegNoEffect(int misc_reg, const MiscReg &val)
 {
-  unsigned reg_sel = 0;
+    unsigned reg_sel = 0;
     DPRINTF(RiscvPRA,
             "Setting (direct set) CP0 Register:%u "
             "Select:%u (%s) to %#x.\n",
-             misc_reg / 8, misc_reg % 8, miscRegNames[misc_reg], val);
+            misc_reg / 8, misc_reg % 8, miscRegNames[misc_reg], val);
 
     miscRegFile[misc_reg][reg_sel] = val;
 }
@@ -122,7 +122,7 @@ ISA::setMiscReg(int misc_reg, const MiscReg &val,
     DPRINTF(RiscvPRA,
             "Setting CP0 Register:%u "
             "Select:%u (%s) to %#x, with effect.\n",
-             misc_reg / 8, misc_reg % 8, miscRegNames[misc_reg], val);
+            misc_reg / 8, misc_reg % 8, miscRegNames[misc_reg], val);
 
 
     miscRegFile[misc_reg][reg_sel] = val;

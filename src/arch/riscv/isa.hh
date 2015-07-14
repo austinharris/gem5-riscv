@@ -52,7 +52,7 @@ class ISA : public SimObject
 {
   protected:
 
-  std::vector<std::vector<MiscReg> > miscRegFile;
+    std::vector<std::vector<MiscReg> > miscRegFile;
 
   public:
     typedef RiscvISAParams Params;

@@ -52,20 +52,20 @@ namespace RiscvISA
 {
 
 
-	//#include "sim/byteswap.hh"
-    using namespace LittleEndianGuest;
+//#include "sim/byteswap.hh"
+using namespace LittleEndianGuest;
 
 // Riscv does NOT have a delay slot
 #define ISA_HAS_DELAY_SLOT 0
 
-    const Addr PageShift = 21;
-    const Addr PageBytes = ULL(1) << PageShift;
+const Addr PageShift = 21;
+const Addr PageBytes = ULL(1) << PageShift;
 
-    // Memory accesses can not be unaligned
-    const bool HasUnalignedMemAcc = true;
+// Memory accesses can not be unaligned
+const bool HasUnalignedMemAcc = true;
 
-    const bool CurThreadInfoImplemented = false;
-    const int CurThreadInfoReg = -1;
+const bool CurThreadInfoImplemented = false;
+const int CurThreadInfoReg = -1;
 }
 
 #endif //__ARCH_RISCV_ISA_TRAITS_HH__

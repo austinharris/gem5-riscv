@@ -56,8 +56,8 @@ using namespace RiscvISA;
 TLB::TLB(const Params *p)
     : BaseTLB(p), size(p->size)
 {
-	uartAddr = 0x20000025;
-	expectedAddr = 0x200000af;
+    uartAddr = 0x20000025;
+    expectedAddr = 0x200000af;
 }
 
 TLB::~TLB()
@@ -69,11 +69,11 @@ TLB::translateAtomic(RequestPtr req, ThreadContext *tc, Mode)
 {
 
 	
-	//if(req->getVaddr() == expectedAddr || req->getVaddr() == 0x200000ef || req->getVaddr() == 0x20000000) { req->setPaddr(uartAddr); return NoFault; }
+    //if(req->getVaddr() == expectedAddr || req->getVaddr() == 0x200000ef || req->getVaddr() == 0x20000000) { req->setPaddr(uartAddr); return NoFault; }
 
-	req->setPaddr(req->getVaddr());	
+    req->setPaddr(req->getVaddr());	
 
-	return NoFault;
+    return NoFault;
 }
 
 void

@@ -48,13 +48,13 @@ namespace RiscvISA {
 inline Addr
 vtophys(Addr vaddr)
 {
- return vaddr;
+    return vaddr;
 }
 
 inline Addr
 vtophys(ThreadContext *tc, Addr vaddr)
 {
- return vtophys(vaddr);
+    return vtophys(vaddr);
 }
 
 } // namespace RiscvISA

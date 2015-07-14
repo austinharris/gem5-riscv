@@ -56,55 +56,55 @@ class RiscvLiveProcess : public LiveProcess
 	public:
 		void initState()
 		{
-			LiveProcess::initState();
+        LiveProcess::initState();
 
     		/*const Addr PageShift = 21;
-    		const Addr PageBytes = ULL(1) << PageShift;
+          const Addr PageBytes = ULL(1) << PageShift;
 
-			stack_base = 0x80000000;
+          stack_base = 0x80000000;
 		
-    		// Set pointer for next thread stack.  Reserve 8M for main stack.
-    		next_thread_stack_base = stack_base - (256 * 1024 * 1024);
+          // Set pointer for next thread stack.  Reserve 8M for main stack.
+          next_thread_stack_base = stack_base - (256 * 1024 * 1024);
 
-    		// Set up break point (Top of Heap)
-    		brk_point = objFile->dataBase() + objFile->dataSize() + objFile->bssSize();
-    		brk_point = roundUp(brk_point, PageBytes);
+          // Set up break point (Top of Heap)
+          brk_point = objFile->dataBase() + objFile->dataSize() + objFile->bssSize();
+          brk_point = roundUp(brk_point, PageBytes);
 
-    		// Set up region for mmaps.  Start it 1GB above the top of the heap.
-    		mmap_start = mmap_end = brk_point + 0x40000000L;
+          // Set up region for mmaps.  Start it 1GB above the top of the heap.
+          mmap_start = mmap_end = brk_point + 0x40000000L;
 
-    		// load object file into target memory
-    		objFile->loadSections(initVirtMem);
+          // load object file into target memory
+          objFile->loadSections(initVirtMem);
 	
-    		int space_needed = 0x4000000;
+          int space_needed = 0x4000000;
 
-    		// set bottom of stack
-    		stack_min = stack_base - space_needed;
-    		// align it
-    		stack_min = roundDown(stack_min, PageBytes);
-    		stack_size = stack_base - stack_min;
-    		// map memory
-    		allocateMem(stack_min, roundUp(stack_size, PageBytes));
-			allocateMem(0x20000000, 0xffff);*/
+          // set bottom of stack
+          stack_min = stack_base - space_needed;
+          // align it
+          stack_min = roundDown(stack_min, PageBytes);
+          stack_size = stack_base - stack_min;
+          // map memory
+          allocateMem(stack_min, roundUp(stack_size, PageBytes));
+          allocateMem(0x20000000, 0xffff);*/
 
-			PortProxy systemPort(system->getSystemPort(),system->cacheLineSize());
+        PortProxy systemPort(system->getSystemPort(),system->cacheLineSize());
 
-			//USE A SIMPLE SYSTEM PORT PROXY INSTEAD OF THE normal, derived seTranslatingPortProxy.
-			objFile->loadSections(systemPort);
-			ThreadContext *tc = system->getThreadContext(contextIds[0]);
-			tc->pcState(objFile->entryPoint());
-			//tc->setIntReg(TheISA::StackPointerReg,0x7FFF0FFF);
+        //USE A SIMPLE SYSTEM PORT PROXY INSTEAD OF THE normal, derived seTranslatingPortProxy.
+        objFile->loadSections(systemPort);
+        ThreadContext *tc = system->getThreadContext(contextIds[0]);
+        tc->pcState(objFile->entryPoint());
+        //tc->setIntReg(TheISA::StackPointerReg,0x7FFF0FFF);
 			
 		}
 
 
- protected:
-  inline
-  RiscvLiveProcess(LiveProcessParams * params, ObjectFile *objFile)
-   : LiveProcess(params, objFile)
-  {
+  protected:
+    inline
+    RiscvLiveProcess(LiveProcessParams * params, ObjectFile *objFile)
+        : LiveProcess(params, objFile)
+    {
    
-  }
+    }
 };
 
 /* No architectural page table defined for this ISA */

@@ -39,8 +39,8 @@
 class ThreadContext;
 
 namespace RiscvISA {
-    using GenericISA::m5Syscall;
-    using GenericISA::m5PageFault;
+using GenericISA::m5Syscall;
+using GenericISA::m5PageFault;
 }
 
 #endif // __ARCH_RISCV_PSEUDO_INST_HH__

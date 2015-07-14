@@ -85,7 +85,7 @@ const int SyscallPseudoReturnReg = 8;
 const int SyscallSuccessReg = 8;
 
 enum MiscRegIndex{
-  MISCREG_HARTID = 0
+    MISCREG_HARTID = 0
 };
 
 }
